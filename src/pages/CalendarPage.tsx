@@ -4,12 +4,14 @@ import { Calendar as CalendarIcon, Gift } from 'lucide-react';
 import { useGameStore } from '../store/useGameStore';
 import { CalendarDay } from '../components/calendar/CalendarDay';
 import { DayModal } from '../components/calendar/DayModal';
+import { CarGame } from '../components/games/CarGame';
 import type { CalendarDay as CalendarDayType } from '../types';
 
 export const CalendarPage = () => {
-  const { calendarDays, initializeCalendar } = useGameStore();
+  const { calendarDays, initializeCalendar, completeDay } = useGameStore();
   const [selectedDay, setSelectedDay] = useState<CalendarDayType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPlayingGame, setIsPlayingGame] = useState(false);
 
   useEffect(() => {
     if (calendarDays.length === 0) {
@@ -24,11 +26,22 @@ export const CalendarPage = () => {
 
   const handlePlayGame = () => {
     if (selectedDay) {
-      // TODO: Navegar al juego específico
       setIsModalOpen(false);
-      // Por ahora mostramos un alert
-      alert(`Próximamente: ${selectedDay.gameType} - Día ${selectedDay.day}`);
+      setIsPlayingGame(true);
     }
+  };
+
+  const handleGameComplete = (prize: string) => {
+    if (selectedDay) {
+      completeDay(selectedDay.day, prize);
+      setIsPlayingGame(false);
+      setSelectedDay(null);
+    }
+  };
+
+  const handleCloseGame = () => {
+    setIsPlayingGame(false);
+    setSelectedDay(null);
   };
 
   const completedDays = calendarDays.filter(d => d.completed).length;
@@ -113,6 +126,33 @@ export const CalendarPage = () => {
         onClose={() => setIsModalOpen(false)}
         onPlayGame={handlePlayGame}
       />
+
+      {/* Juego */}
+      {isPlayingGame && selectedDay && selectedDay.gameType === 'car' && (
+        <CarGame
+          dayNumber={selectedDay.day}
+          onComplete={handleGameComplete}
+          onClose={handleCloseGame}
+        />
+      )}
+
+      {/* Placeholder para otros juegos */}
+      {isPlayingGame && selectedDay && selectedDay.gameType !== 'car' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="glass-effect rounded-2xl p-8 max-w-md w-full text-center">
+            <h2 className="text-2xl font-bold mb-4">Próximamente</h2>
+            <p className="text-white/70 mb-6">
+              Este juego estará disponible pronto
+            </p>
+            <button
+              onClick={handleCloseGame}
+              className="px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
