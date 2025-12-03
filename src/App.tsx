@@ -5,9 +5,9 @@ import { Navbar } from './components/layout/Navbar';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/Home';
+import { CalendarPage } from './pages/CalendarPage';
 
 // Placeholder components - crearemos estos después
-const CalendarPage = () => <div className="pt-24 text-center">Calendario (próximamente)</div>;
 const AchievementsPage = () => <div className="pt-24 text-center">Logros (próximamente)</div>;
 const WhereToBuyPage = () => <div className="pt-24 text-center">Dónde Comprar (próximamente)</div>;
 const CalendarsPage = () => <div className="pt-24 text-center">Mis Calendarios (próximamente)</div>;

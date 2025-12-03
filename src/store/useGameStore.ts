@@ -41,7 +41,11 @@ export const useGameStore = create<GameState>()(
           const currentMonth = currentDate.getMonth();
           
           // Desbloquear días en diciembre según la fecha actual
-          const unlocked = currentMonth === 11 && currentDay >= day;
+          // En desarrollo: desbloquear los primeros 5 días para testing
+          const isDevelopment = import.meta.env.DEV;
+          const unlocked = isDevelopment 
+            ? day <= 5 // En desarrollo, primeros 5 días desbloqueados
+            : currentMonth === 11 && currentDay >= day; // En producción, según fecha
           
           return {
             day,
