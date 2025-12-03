@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  
   body {
     @apply bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white min-h-screen;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
