@@ -8,10 +8,10 @@ import { Home } from './pages/Home';
 import { CalendarPage } from './pages/CalendarPage';
 import { AchievementsPage } from './pages/AchievementsPage';
 import { CalendarsPage } from './pages/CalendarsPage';
+import { ProfilePage } from './pages/ProfilePage';
 
 // Placeholder components - crearemos estos después
 const WhereToBuyPage = () => <div className="pt-24 text-center">Dónde Comprar (próximamente)</div>;
-const ProfilePage = () => <div className="pt-24 text-center">Perfil (próximamente)</div>;
 const ChocoBoxerPage = () => <div className="pt-24 text-center">Choco Boxer (próximamente)</div>;
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
