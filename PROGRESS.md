@@ -11,12 +11,12 @@
 - [x] Autenticación
 - [x] Documentación completa
 
-### Fase 2: Páginas Principales ✅ 80%
+### Fase 2: Páginas Principales ✅ 90%
 - [x] **Página de Calendario Virtual** - Grid de 24 casillas con estados
 - [x] **Página de Logros** - 9 achievements con progreso
 - [x] **Página de Mis Calendarios** - Canjear códigos
 - [x] **Página de Perfil** - Stats y progreso del usuario
-- [ ] Página "Dónde Comprar" con mapa
+- [x] **Página "Dónde Comprar"** - Mapa interactivo con Leaflet
 - [ ] Página de información de chocolatinas
 
 ---
@@ -55,24 +55,35 @@
 - Sección de actividad reciente
 - Diseño responsive
 
+### 🗺️ Dónde Comprar
+- Mapa interactivo con Leaflet
+- 5 ubicaciones de tiendas
+- Marcadores clickeables con información
+- Lista de tiendas con detalles
+- Geolocalización del usuario
+- Popups personalizados
+- Información de contacto y horarios
+
 ---
 
 ## 📈 Estadísticas del Proyecto
 
-- **Commits**: 12 commits profesionales
-- **Páginas**: 8 páginas completas
-- **Componentes**: 15+ componentes reutilizables
-- **Líneas de código**: ~1,500+ líneas
+- **Commits**: 16 commits profesionales
+- **Páginas**: 9 páginas completas
+- **Componentes**: 18+ componentes reutilizables
+- **Líneas de código**: ~2,000+ líneas
 - **Responsive**: 100% mobile-first
+- **Integración**: Leaflet Maps, Geolocalización
 
 ---
 
 ## 🎯 Próximos Pasos
 
 ### Prioridad Alta
-1. **Página "Dónde Comprar"** con mapa de Leaflet
+1. ~~**Página "Dónde Comprar"** con mapa de Leaflet~~ ✅
 2. **Primer juego**: Juego del coche (3 carriles)
 3. **Sistema de premios**: Revelar premios al completar juegos
+4. **Sistema de logros automático** ✅
 
 ### Prioridad Media
 4. **Más juegos**: Snake, Memory, Puzzle
@@ -207,6 +218,17 @@ El proyecto tiene una base sólida con:
 
 ---
 
+## 🎉 Logros Recientes
+
+- ✅ Sistema de logros automático implementado
+- ✅ Mapa interactivo con Leaflet
+- ✅ Geolocalización del usuario
+- ✅ 5 páginas principales completas
+- ✅ Botón de prueba para desarrollo
+
+---
+
 Última actualización: Diciembre 3, 2025
-Commits totales: 12
+Commits totales: 16
 Estado: En desarrollo activo 🚀
+Fase actual: 2 (90% completada)
