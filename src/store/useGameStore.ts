@@ -11,6 +11,7 @@ interface GameState {
   completeDay: (day: number, prize: string) => void;
   unlockAchievement: (achievementId: string) => void;
   updateBoxerLevel: (level: number) => void;
+  unlockRandomAchievements?: () => void;
 }
 
 const ACHIEVEMENTS: Achievement[] = [
@@ -71,6 +72,16 @@ export const useGameStore = create<GameState>()(
         const updated = achievements.map(a =>
           a.id === achievementId ? { ...a, unlocked: true } : a
         );
+        set({ achievements: updated });
+      },
+
+      // Helper para desarrollo: desbloquear logros aleatorios
+      unlockRandomAchievements: () => {
+        const { achievements } = get();
+        const updated = achievements.map(a => ({
+          ...a,
+          unlocked: Math.random() > 0.5
+        }));
         set({ achievements: updated });
       },
 

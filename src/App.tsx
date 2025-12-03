@@ -6,9 +6,9 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/Home';
 import { CalendarPage } from './pages/CalendarPage';
+import { AchievementsPage } from './pages/AchievementsPage';
 
 // Placeholder components - crearemos estos después
-const AchievementsPage = () => <div className="pt-24 text-center">Logros (próximamente)</div>;
 const WhereToBuyPage = () => <div className="pt-24 text-center">Dónde Comprar (próximamente)</div>;
 const CalendarsPage = () => <div className="pt-24 text-center">Mis Calendarios (próximamente)</div>;
 const ProfilePage = () => <div className="pt-24 text-center">Perfil (próximamente)</div>;
