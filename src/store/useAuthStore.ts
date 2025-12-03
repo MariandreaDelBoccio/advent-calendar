@@ -54,6 +54,15 @@ export const useAuthStore = create<AuthState>()(
           redeemedCalendars: [...user.redeemedCalendars, code],
         };
         set({ user: updatedUser });
+
+        // Desbloquear logros según cantidad de calendarios
+        const count = updatedUser.redeemedCalendars.length;
+        const { useGameStore } = await import('./useGameStore');
+        const { unlockAchievement } = useGameStore.getState();
+
+        if (count >= 1) unlockAchievement('first-calendar');
+        if (count >= 2) unlockAchievement('double-chance');
+        if (count >= 5) unlockAchievement('chocolate-lover');
       },
     }),
     {

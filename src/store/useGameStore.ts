@@ -59,12 +59,24 @@ export const useGameStore = create<GameState>()(
       },
 
       completeDay: (day: number, prize: string) => {
-        const { calendarDays, gameProgress } = get();
+        const { calendarDays, gameProgress, unlockAchievement } = get();
         const updatedDays = calendarDays.map(d =>
           d.day === day ? { ...d, completed: true, prize } : d
         );
         const updatedProgress = [...gameProgress, { day, completed: true, score: 100 }];
         set({ calendarDays: updatedDays, gameProgress: updatedProgress });
+
+        // Desbloquear logros según días completados
+        const completedCount = updatedDays.filter(d => d.completed).length;
+        if (completedCount >= 2) unlockAchievement('curious');
+        if (completedCount >= 5) unlockAchievement('fifth-reveal');
+        if (completedCount >= 24) unlockAchievement('all-reveals');
+
+        // Desbloquear logro específico del juego de coche
+        const completedDay = updatedDays.find(d => d.day === day);
+        if (completedDay?.gameType === 'car') {
+          unlockAchievement('car-complete');
+        }
       },
 
       unlockAchievement: (achievementId: string) => {
@@ -86,7 +98,12 @@ export const useGameStore = create<GameState>()(
       },
 
       updateBoxerLevel: (level: number) => {
+        const { unlockAchievement } = get();
         set({ boxerLevel: level });
+
+        // Desbloquear logros según nivel de Choco Boxer
+        if (level >= 1) unlockAchievement('boxer-novice');
+        if (level >= 5) unlockAchievement('boxer-expert');
       },
     }),
     {
