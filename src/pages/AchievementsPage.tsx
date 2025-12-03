@@ -1,10 +1,23 @@
 import { motion } from 'framer-motion';
-import { Trophy, Star, Lock } from 'lucide-react';
+import { Trophy, Star, Lock, TestTube } from 'lucide-react';
 import { useGameStore } from '../store/useGameStore';
+import { useAuthStore } from '../store/useAuthStore';
 import { AchievementCard } from '../components/achievements/AchievementCard';
 
 export const AchievementsPage = () => {
   const { achievements } = useGameStore();
+  const { redeemCalendar } = useAuthStore();
+
+  // Función de prueba para desarrollo
+  const handleTestCalendar = async () => {
+    const testCode = `TEST-${Date.now()}`;
+    try {
+      await redeemCalendar(testCode);
+      alert('¡Calendario de prueba canjeado! Revisa tus logros.');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const unlockedCount = achievements.filter(a => a.unlocked).length;
   const totalCount = achievements.length;
@@ -82,6 +95,24 @@ export const AchievementsPage = () => {
             />
           ))}
         </div>
+
+        {/* Botón de prueba (solo en desarrollo) */}
+        {import.meta.env.DEV && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mb-6 text-center"
+          >
+            <button
+              onClick={handleTestCalendar}
+              className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm font-semibold transition-colors inline-flex items-center gap-2"
+            >
+              <TestTube size={16} />
+              Canjear Calendario de Prueba
+            </button>
+          </motion.div>
+        )}
 
         {/* Motivational Message */}
         <motion.div
