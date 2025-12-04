@@ -22,51 +22,59 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10"
     >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-xl font-bold">
-            <span className="text-2xl">🍫</span>
-            <span className="hidden sm:inline">Calendario de Adviento</span>
+      <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
+        <div className="flex items-center justify-between gap-2">
+          <Link to="/" className="flex items-center gap-1 sm:gap-2 text-lg sm:text-xl font-bold flex-shrink-0">
+            <span className="text-xl sm:text-2xl">🍫</span>
+            <span className="hidden md:inline">Calendario de Adviento</span>
           </Link>
 
-          <div className="flex items-center gap-4">
-            <SoundToggle />
-            <DarkModeToggle />
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
+            <div className="hidden sm:flex items-center gap-2">
+              <SoundToggle />
+              <DarkModeToggle />
+            </div>
             
             <Link
               to="/"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
             >
-              <Home size={20} />
-              <span className="hidden sm:inline">Inicio</span>
+              <Home size={18} className="sm:w-5 sm:h-5" />
+              <span className="hidden md:inline">Inicio</span>
             </Link>
 
             <Link
               to="/calendars"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
             >
-              <Gift size={20} />
-              <span className="hidden sm:inline">
+              <Gift size={18} className="sm:w-5 sm:h-5" />
+              <span className="hidden md:inline">
                 Calendarios ({user.redeemedCalendars.length})
               </span>
-              <span className="sm:hidden">{user.redeemedCalendars.length}</span>
+              <span className="md:hidden text-sm">{user.redeemedCalendars.length}</span>
             </Link>
 
             <Link
               to="/profile"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
             >
-              <User size={20} />
-              <span className="hidden sm:inline">{user.name}</span>
+              <User size={18} className="sm:w-5 sm:h-5" />
+              <span className="hidden md:inline">{user.name}</span>
             </Link>
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-500/20 transition-colors text-red-300"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg hover:bg-red-500/20 transition-colors text-red-300"
             >
-              <LogOut size={20} />
-              <span className="hidden sm:inline">Salir</span>
+              <LogOut size={18} className="sm:w-5 sm:h-5" />
+              <span className="hidden md:inline">Salir</span>
             </button>
+            
+            {/* Toggles en móvil al final */}
+            <div className="flex sm:hidden items-center gap-1 ml-1 border-l border-white/20 pl-1">
+              <SoundToggle />
+              <DarkModeToggle />
+            </div>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import { ProfilePage } from './pages/ProfilePage';
 import { WhereToBuyPage } from './pages/WhereToBuyPage';
 import { ChocoBoxerPage } from './pages/ChocoBoxerPage';
 import { ToastContainer } from './components/ui/Toast';
+import { AudioUnlockPrompt } from './components/ui/AudioUnlockPrompt';
 import { useToastStore } from './hooks/useToast';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -27,6 +28,7 @@ function App() {
       <Background />
       <Navbar />
       <ToastContainer toasts={toasts} onClose={removeToast} />
+      <AudioUnlockPrompt />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

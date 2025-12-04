@@ -16,7 +16,7 @@ export const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="relative w-16 h-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-1 flex items-center"
+      className="relative w-12 h-6 sm:w-16 sm:h-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors p-0.5 sm:p-1 flex items-center"
       aria-label="Toggle dark mode"
     >
       {/* Track */}
@@ -29,16 +29,16 @@ export const DarkModeToggle = () => {
 
       {/* Thumb */}
       <motion.div
-        className="relative w-6 h-6 rounded-full bg-white shadow-lg flex items-center justify-center z-10"
+        className="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white shadow-lg flex items-center justify-center z-10"
         animate={{
-          x: darkMode ? 32 : 0,
+          x: darkMode ? 24 : 0,
         }}
         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       >
         {darkMode ? (
-          <Moon size={14} className="text-blue-600" />
+          <Moon size={12} className="text-blue-600 sm:w-3.5 sm:h-3.5" />
         ) : (
-          <Sun size={14} className="text-yellow-600" />
+          <Sun size={12} className="text-yellow-600 sm:w-3.5 sm:h-3.5" />
         )}
       </motion.div>
     </button>
