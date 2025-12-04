@@ -126,10 +126,11 @@ export const WelcomeTutorial = ({ onComplete }: WelcomeTutorialProps) => {
           >
             {/* Emoji */}
             <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', delay: 0.1 }}
-              className="text-8xl mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="text-8xl mb-6 select-none"
+              style={{ willChange: 'transform' }}
             >
               {step.emoji}
             </motion.div>
