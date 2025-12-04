@@ -81,10 +81,25 @@ export const useGameStore = create<GameState>()(
 
       unlockAchievement: (achievementId: string) => {
         const { achievements } = get();
-        const updated = achievements.map(a =>
-          a.id === achievementId ? { ...a, unlocked: true } : a
-        );
-        set({ achievements: updated });
+        const achievement = achievements.find(a => a.id === achievementId);
+        
+        // Solo desbloquear si no estaba desbloqueado antes
+        if (achievement && !achievement.unlocked) {
+          const updated = achievements.map(a =>
+            a.id === achievementId ? { ...a, unlocked: true } : a
+          );
+          set({ achievements: updated });
+
+          // Notificar al usuario (se importará dinámicamente para evitar dependencias circulares)
+          import('../hooks/useToast').then(({ useToastStore }) => {
+            useToastStore.getState().addToast({
+              type: 'achievement',
+              title: `¡Logro Desbloqueado! ${achievement.icon}`,
+              message: achievement.title,
+              duration: 7000,
+            });
+          });
+        }
       },
 
       // Helper para desarrollo: desbloquear logros aleatorios

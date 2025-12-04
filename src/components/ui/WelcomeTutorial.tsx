@@ -88,26 +88,21 @@ export const WelcomeTutorial = ({ onComplete }: WelcomeTutorialProps) => {
         animate={{ opacity: 1, scale: 1 }}
         className="glass-effect rounded-3xl p-8 max-w-2xl w-full relative overflow-hidden"
       >
-        {/* Skip button */}
+        {/* Close button */}
         <button
           onClick={handleSkip}
-          className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white"
+          className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full transition-colors text-white/70 hover:text-white group"
+          title="Cerrar tutorial"
         >
-          <X size={24} />
+          <X size={24} className="group-hover:rotate-90 transition-transform" />
         </button>
 
         {/* Progress bar */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-white/70">
+            <span className="text-sm font-semibold text-white/90">
               Paso {currentStep + 1} de {tutorialSteps.length}
             </span>
-            <button
-              onClick={handleSkip}
-              className="text-sm text-white/50 hover:text-white/80 transition-colors"
-            >
-              Saltar tutorial
-            </button>
           </div>
           <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
             <motion.div

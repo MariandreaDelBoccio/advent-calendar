@@ -11,6 +11,8 @@ import { CalendarsPage } from './pages/CalendarsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { WhereToBuyPage } from './pages/WhereToBuyPage';
 import { ChocoBoxerPage } from './pages/ChocoBoxerPage';
+import { ToastContainer } from './components/ui/Toast';
+import { useToastStore } from './hooks/useToast';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuthStore();
@@ -18,10 +20,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 function App() {
+  const { toasts, removeToast } = useToastStore();
+
   return (
     <BrowserRouter>
       <Background />
       <Navbar />
+      <ToastContainer toasts={toasts} onClose={removeToast} />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

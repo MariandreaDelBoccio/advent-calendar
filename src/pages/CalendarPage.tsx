@@ -39,6 +39,16 @@ export const CalendarPage = () => {
       completeDay(selectedDay.day, prize);
       setIsPlayingGame(false);
       setSelectedDay(null);
+      
+      // Notificación de premio
+      import('../hooks/useToast').then(({ useToastStore }) => {
+        useToastStore.getState().addToast({
+          type: 'success',
+          title: `¡Día ${selectedDay.day} Completado! 🎉`,
+          message: `Premio: ${prize}`,
+          duration: 6000,
+        });
+      });
     }
   };
 

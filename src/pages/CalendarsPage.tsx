@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Gift, Plus, Check, Calendar, QrCode } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
+import { useToast } from '../hooks/useToast';
 
 export const CalendarsPage = () => {
   const { user, redeemCalendar } = useAuthStore();
+  const toast = useToast();
   const [code, setCode] = useState('');
   const [isRedeeming, setIsRedeeming] = useState(false);
   const [error, setError] = useState('');
@@ -26,10 +28,18 @@ export const CalendarsPage = () => {
       setSuccess(true);
       setCode('');
       
+      // Notificación de éxito
+      toast.success(
+        '¡Calendario Canjeado! 🎁',
+        'Tu nuevo calendario ha sido agregado exitosamente',
+        5000
+      );
+      
       // Ocultar mensaje de éxito después de 3 segundos
       setTimeout(() => setSuccess(false), 3000);
     } catch (err: any) {
       setError(err.message || 'Error al canjear el código');
+      toast.error('Error al Canjear', err.message || 'Código inválido');
     } finally {
       setIsRedeeming(false);
     }
