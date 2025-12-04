@@ -4,7 +4,7 @@ import { useUIStore } from '../../store/useUIStore';
 import { useEffect } from 'react';
 
 export const DarkModeToggle = () => {
-  const { darkMode, toggleDarkMode, setDarkMode } = useUIStore();
+  const { darkMode, toggleDarkMode } = useUIStore();
 
   // Aplicar modo oscuro al cargar
   useEffect(() => {

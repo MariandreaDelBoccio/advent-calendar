@@ -19,7 +19,7 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
 
-      login: async (email: string, password: string) => {
+      login: async (email: string, _password: string) => {
         // TODO: Implementar llamada a API
         // Por ahora simulamos el login
         const mockUser: User = {
@@ -35,7 +35,7 @@ export const useAuthStore = create<AuthState>()(
         set({ user: mockUser, isAuthenticated: true });
       },
 
-      register: async (email: string, password: string, name: string) => {
+      register: async (email: string, _password: string, name: string) => {
         // TODO: Implementar llamada a API
         const mockUser: User = {
           id: '1',

@@ -36,7 +36,6 @@ export const useGameStore = create<GameState>()(
 
       initializeCalendar: () => {
         const gameTypes = ['car', 'snake', 'memory', 'puzzle'] as const;
-        const difficulties = ['easy', 'medium', 'hard'] as const;
         const estimatedTimes = [2, 3, 4, 5]; // minutos
 
         const days: CalendarDay[] = Array.from({ length: 24 }, (_, i) => {
