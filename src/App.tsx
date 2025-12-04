@@ -10,9 +10,7 @@ import { AchievementsPage } from './pages/AchievementsPage';
 import { CalendarsPage } from './pages/CalendarsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { WhereToBuyPage } from './pages/WhereToBuyPage';
-
-// Placeholder components - crearemos estos después
-const ChocoBoxerPage = () => <div className="pt-24 text-center">Choco Boxer (próximamente)</div>;
+import { ChocoBoxerPage } from './pages/ChocoBoxerPage';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuthStore();
