@@ -5,6 +5,7 @@ import { useGameStore } from '../store/useGameStore';
 import { CalendarDay } from '../components/calendar/CalendarDay';
 import { DayModal } from '../components/calendar/DayModal';
 import { CarGame } from '../components/games/CarGame';
+import { SnakeGame } from '../components/games/SnakeGame';
 import type { CalendarDay as CalendarDayType } from '../types';
 
 export const CalendarPage = () => {
@@ -127,7 +128,7 @@ export const CalendarPage = () => {
         onPlayGame={handlePlayGame}
       />
 
-      {/* Juego */}
+      {/* Juego del Coche */}
       {isPlayingGame && selectedDay && selectedDay.gameType === 'car' && (
         <CarGame
           dayNumber={selectedDay.day}
@@ -136,8 +137,17 @@ export const CalendarPage = () => {
         />
       )}
 
+      {/* Juego Snake */}
+      {isPlayingGame && selectedDay && selectedDay.gameType === 'snake' && (
+        <SnakeGame
+          dayNumber={selectedDay.day}
+          onComplete={handleGameComplete}
+          onClose={handleCloseGame}
+        />
+      )}
+
       {/* Placeholder para otros juegos */}
-      {isPlayingGame && selectedDay && selectedDay.gameType !== 'car' && (
+      {isPlayingGame && selectedDay && selectedDay.gameType !== 'car' && selectedDay.gameType !== 'snake' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="glass-effect rounded-2xl p-8 max-w-md w-full text-center">
             <h2 className="text-2xl font-bold mb-4">Próximamente</h2>
