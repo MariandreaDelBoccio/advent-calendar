@@ -11,6 +11,7 @@ import { CalendarsPage } from './pages/CalendarsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { WhereToBuyPage } from './pages/WhereToBuyPage';
 import { ChocoBoxerPage } from './pages/ChocoBoxerPage';
+import { PrizesPage } from './pages/PrizesPage';
 import { ToastContainer } from './components/ui/Toast';
 import { AudioUnlockPrompt } from './components/ui/AudioUnlockPrompt';
 import { useToastStore } from './hooks/useToast';
@@ -85,6 +86,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ChocoBoxerPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/prizes"
+          element={
+            <ProtectedRoute>
+              <PrizesPage />
             </ProtectedRoute>
           }
         />
