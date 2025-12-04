@@ -57,10 +57,10 @@ const LEVELS = [
   {
     level: 5,
     enemies: [
-      { id: 17, name: 'Emperador Chocolate', emoji: '👑', health: 130, maxHealth: 130, damage: 20 },
-      { id: 18, name: 'Rey Caramelo', emoji: '🤴', health: 140, maxHealth: 140, damage: 21 },
-      { id: 19, name: 'Señor Azúcar', emoji: '🦹', health: 150, maxHealth: 150, damage: 22 },
-      { id: 20, name: 'Jefe Final Dulce', emoji: '👹', health: 180, maxHealth: 180, damage: 25 },
+      { id: 17, name: 'Emperador Chocolate', emoji: '👑', health: 110, maxHealth: 110, damage: 18 },
+      { id: 18, name: 'Rey Caramelo', emoji: '🤴', health: 120, maxHealth: 120, damage: 19 },
+      { id: 19, name: 'Señor Azúcar', emoji: '🦹', health: 130, maxHealth: 130, damage: 20 },
+      { id: 20, name: 'Jefe Final Dulce', emoji: '👹', health: 150, maxHealth: 150, damage: 22 },
     ],
   },
 ];
@@ -132,6 +132,9 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
   // Enemigo derrotado
   const handleEnemyDefeated = () => {
     if (currentEnemyIndex < enemies.length - 1) {
+      // Curar un poco al jugador entre enemigos (20 HP)
+      setPlayerHealth((prev) => Math.min(maxPlayerHealth, prev + 20));
+      
       // Siguiente enemigo
       setTimeout(() => {
         setCurrentEnemyIndex((prev) => prev + 1);
