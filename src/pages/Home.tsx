@@ -121,7 +121,7 @@ export const Home = () => {
       </motion.div>
 
       {/* Quick Links Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 mb-16 max-w-6xl mx-auto">
         <QuickLink
           to="/calendar"
           icon={<Calendar size={32} />}
@@ -131,13 +131,13 @@ export const Home = () => {
         <QuickLink
           to="/prizes"
           icon={<Gift size={32} />}
-          title="Mis Premios"
+          title="Premios"
           description="Premios revelados"
         />
         <QuickLink
           to="/achievements"
           icon={<Trophy size={32} />}
-          title="Mis Logros"
+          title="Logros"
           description="9 logros disponibles"
         />
         <QuickLink
@@ -149,7 +149,7 @@ export const Home = () => {
         <QuickLink
           to="/calendars"
           icon={<Gift size={32} />}
-          title="Mis Calendarios"
+          title="Calendarios"
           description="Canjea más códigos"
         />
       </div>

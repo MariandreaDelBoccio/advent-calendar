@@ -30,7 +30,7 @@ export const PrizesPage = () => {
         <div className="flex items-center justify-center gap-3 mb-4">
           <Gift size={48} className="text-pink-400" />
           <h1 className="text-4xl md:text-5xl font-bold text-shadow">
-            Mis Premios
+            Premios
           </h1>
         </div>
         <p className="text-xl text-white/80 mb-6">
