@@ -1,10 +1,33 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, Trophy, MapPin, Gift } from 'lucide-react';
+import { Calendar, Trophy, MapPin, Gift, HelpCircle } from 'lucide-react';
+import { useUIStore } from '../store/useUIStore';
+import { WelcomeTutorial } from '../components/ui/WelcomeTutorial';
 
 export const Home = () => {
+  const { hasSeenTutorial, showTutorial, setHasSeenTutorial, setShowTutorial } = useUIStore();
+
+  // Mostrar tutorial en el primer login
+  useEffect(() => {
+    if (!hasSeenTutorial) {
+      setShowTutorial(true);
+    }
+  }, [hasSeenTutorial, setShowTutorial]);
+
+  const handleTutorialComplete = () => {
+    setHasSeenTutorial(true);
+  };
+
+  const handleShowTutorial = () => {
+    setShowTutorial(true);
+  };
   return (
-    <div className="container mx-auto px-4 py-8 pt-24">
+    <>
+      {/* Tutorial Modal */}
+      {showTutorial && <WelcomeTutorial onComplete={handleTutorialComplete} />}
+
+      <div className="container mx-auto px-4 py-8 pt-24">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -17,12 +40,21 @@ export const Home = () => {
         <p className="text-xl md:text-2xl text-white/80 mb-8">
           Descubre premios increíbles cada día de diciembre
         </p>
-        <Link
-          to="/calendar"
-          className="inline-block px-8 py-4 bg-primary-600 hover:bg-primary-700 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
-        >
-          Ver Calendario
-        </Link>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link
+            to="/calendar"
+            className="inline-block px-8 py-4 bg-primary-600 hover:bg-primary-700 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
+          >
+            Ver Calendario
+          </Link>
+          <button
+            onClick={handleShowTutorial}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
+          >
+            <HelpCircle size={24} />
+            Ver Tutorial
+          </button>
+        </div>
       </motion.div>
 
       {/* Quick Links Grid */}
@@ -98,7 +130,8 @@ export const Home = () => {
           Jugar Ahora
         </Link>
       </motion.div>
-    </div>
+      </div>
+    </>
   );
 };
 
