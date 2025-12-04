@@ -7,6 +7,7 @@ import { DayModal } from '../components/calendar/DayModal';
 import { CarGame } from '../components/games/CarGame';
 import { SnakeGame } from '../components/games/SnakeGame';
 import { MemoryGame } from '../components/games/MemoryGame';
+import { PuzzleGame } from '../components/games/PuzzleGame';
 import type { CalendarDay as CalendarDayType } from '../types';
 
 export const CalendarPage = () => {
@@ -156,26 +157,13 @@ export const CalendarPage = () => {
         />
       )}
 
-      {/* Placeholder para otros juegos */}
-      {isPlayingGame &&
-        selectedDay &&
-        selectedDay.gameType !== 'car' &&
-        selectedDay.gameType !== 'snake' &&
-        selectedDay.gameType !== 'memory' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="glass-effect rounded-2xl p-8 max-w-md w-full text-center">
-            <h2 className="text-2xl font-bold mb-4">Próximamente</h2>
-            <p className="text-white/70 mb-6">
-              Este juego estará disponible pronto
-            </p>
-            <button
-              onClick={handleCloseGame}
-              className="px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition-colors"
-            >
-              Cerrar
-            </button>
-          </div>
-        </div>
+      {/* Juego de Puzzle */}
+      {isPlayingGame && selectedDay && selectedDay.gameType === 'puzzle' && (
+        <PuzzleGame
+          dayNumber={selectedDay.day}
+          onComplete={handleGameComplete}
+          onClose={handleCloseGame}
+        />
       )}
     </div>
   );
