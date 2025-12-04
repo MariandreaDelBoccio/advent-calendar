@@ -85,6 +85,21 @@ export const CalendarPage = () => {
             <div className="text-sm text-white/70">Progreso</div>
           </div>
         </div>
+
+        {/* Botón de reset (solo en desarrollo) */}
+        {import.meta.env.DEV && (
+          <div className="mb-6">
+            <button
+              onClick={() => {
+                initializeCalendar();
+                window.location.reload();
+              }}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-semibold transition-colors"
+            >
+              🔄 Resetear Calendario (Dev)
+            </button>
+          </div>
+        )}
       </motion.div>
 
       {/* Calendario Grid */}
