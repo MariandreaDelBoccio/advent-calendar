@@ -28,7 +28,7 @@ export interface CalendarDay {
   unlocked: boolean;
   completed: boolean;
   prize?: string;
-  gameType: 'car' | 'snake' | 'memory' | 'puzzle';
+  gameType: 'car' | 'snake' | 'memory' | 'puzzle' | 'target' | 'simon';
   difficulty?: 'easy' | 'medium' | 'hard';
   estimatedTime?: number; // en minutos
 }

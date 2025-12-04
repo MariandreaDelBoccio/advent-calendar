@@ -35,7 +35,7 @@ export const useGameStore = create<GameState>()(
       boxerLevel: 0,
 
       initializeCalendar: () => {
-        const gameTypes = ['car', 'snake', 'memory', 'puzzle'] as const;
+        const gameTypes = ['car', 'snake', 'memory', 'puzzle', 'target', 'simon'] as const;
         const estimatedTimes = [2, 3, 4, 5]; // minutos
 
         const days: CalendarDay[] = Array.from({ length: 24 }, (_, i) => {

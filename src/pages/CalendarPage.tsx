@@ -10,6 +10,8 @@ import { CarGame } from '../components/games/CarGame';
 import { SnakeGame } from '../components/games/SnakeGame';
 import { MemoryGame } from '../components/games/MemoryGame';
 import { PuzzleGame } from '../components/games/PuzzleGame';
+import { TargetGame } from '../components/games/TargetGame';
+import { SimonGame } from '../components/games/SimonGame';
 import type { CalendarDay as CalendarDayType } from '../types';
 
 export const CalendarPage = () => {
@@ -195,6 +197,42 @@ export const CalendarPage = () => {
           onComplete={handleGameComplete}
           onClose={handleCloseGame}
         />
+      )}
+
+      {/* Juego Target */}
+      {isPlayingGame && selectedDay && selectedDay.gameType === 'target' && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm p-4 flex items-center justify-center">
+          <div className="glass-effect rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <TargetGame
+              onWin={() => handleGameComplete('🎯 Premio de Puntería')}
+              onLose={() => setIsPlayingGame(false)}
+            />
+            <button
+              onClick={handleCloseGame}
+              className="mt-4 w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Juego Simon */}
+      {isPlayingGame && selectedDay && selectedDay.gameType === 'simon' && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm p-4 flex items-center justify-center">
+          <div className="glass-effect rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <SimonGame
+              onWin={() => handleGameComplete('⚡ Premio de Memoria')}
+              onLose={() => setIsPlayingGame(false)}
+            />
+            <button
+              onClick={handleCloseGame}
+              className="mt-4 w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

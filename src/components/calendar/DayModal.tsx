@@ -18,6 +18,8 @@ export const DayModal = ({ day, isOpen, onClose, onPlayGame }: DayModalProps) =>
       snake: '🐍 Snake Chocolate',
       memory: '🃏 Memoria Dulce',
       puzzle: '🧩 Puzzle de Chocolatinas',
+      target: '🎯 Práctica de Puntería',
+      simon: '⚡ Simon Dice',
     };
     return games[gameType as keyof typeof games] || 'Juego';
   };
