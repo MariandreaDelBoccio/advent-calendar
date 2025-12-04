@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Home, User, Gift, LogOut } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { motion } from 'framer-motion';
+import { DarkModeToggle } from '../ui/DarkModeToggle';
 
 export const Navbar = () => {
   const { user, logout } = useAuthStore();
@@ -28,6 +29,8 @@ export const Navbar = () => {
           </Link>
 
           <div className="flex items-center gap-4">
+            <DarkModeToggle />
+            
             <Link
               to="/"
               className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
