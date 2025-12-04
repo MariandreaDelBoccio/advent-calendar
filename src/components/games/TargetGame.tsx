@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, X, Trophy } from 'lucide-react';
+import { Target } from 'lucide-react';
 import { useVictoryEffects } from '../../hooks/useVictoryEffects';
 
 interface TargetGameProps {
