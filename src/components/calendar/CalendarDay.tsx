@@ -67,10 +67,17 @@ export const CalendarDay = ({ day, onClick }: CalendarDayProps) => {
         />
       )}
 
-      {/* Badge de completado */}
+      {/* Badge de completado con premio */}
       {day.completed && (
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-semibold bg-green-500 px-2 py-1 rounded-full">
-          ¡Completado!
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[90%]">
+          <div className="text-xs font-semibold bg-green-500 px-2 py-1 rounded-full mb-1 text-center">
+            ¡Completado!
+          </div>
+          {day.prize && (
+            <div className="text-[10px] bg-yellow-500/90 text-gray-900 px-2 py-1 rounded-full text-center font-semibold line-clamp-2">
+              {day.prize}
+            </div>
+          )}
         </div>
       )}
     </motion.button>
