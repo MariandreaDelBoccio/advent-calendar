@@ -15,7 +15,7 @@ export const AchievementCard = ({ achievement, index }: AchievementCardProps) =>
       transition={{ delay: index * 0.1 }}
       whileHover={achievement.unlocked ? { scale: 1.05, y: -5 } : {}}
       className={`
-        relative rounded-2xl p-6
+        relative rounded-2xl p-6 overflow-hidden
         ${achievement.unlocked 
           ? 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-400/50' 
           : 'bg-gradient-to-br from-gray-700/30 to-gray-800/30 border-2 border-gray-600/30'
