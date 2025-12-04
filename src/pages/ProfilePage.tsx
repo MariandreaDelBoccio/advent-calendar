@@ -5,7 +5,7 @@ import { useGameStore } from '../store/useGameStore';
 
 export const ProfilePage = () => {
   const { user } = useAuthStore();
-  const { calendarDays, achievements, boxerLevel } = useGameStore();
+  const { calendarDays, achievements } = useGameStore();
 
   if (!user) return null;
 
@@ -14,10 +14,10 @@ export const ProfilePage = () => {
   const calendarsCount = user.redeemedCalendars.length;
 
   const stats = [
+    { icon: Star, label: 'Puntos Totales', value: user.totalPoints.toLocaleString(), color: 'text-yellow-400' },
     { icon: Calendar, label: 'Días Completados', value: `${completedDays}/24`, color: 'text-green-400' },
     { icon: Trophy, label: 'Logros Desbloqueados', value: `${unlockedAchievements}/9`, color: 'text-yellow-400' },
-    { icon: Gift, label: 'Calendarios Canjeados', value: calendarsCount, color: 'text-primary-300' },
-    { icon: Star, label: 'Nivel Choco Boxer', value: boxerLevel || 0, color: 'text-red-400' },
+    { icon: Gift, label: 'Racha Actual', value: `${user.currentStreak} 🔥`, color: 'text-orange-400' },
   ];
 
   return (
@@ -68,6 +68,39 @@ export const ProfilePage = () => {
               <div className="text-sm text-white/70">{stat.label}</div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Streak Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="glass-effect rounded-2xl p-8 mb-8"
+        >
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+            <span className="text-4xl">🔥</span>
+            Racha de Días
+          </h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="text-center">
+              <div className="text-5xl font-bold text-orange-400 mb-2">
+                {user.currentStreak}
+              </div>
+              <div className="text-sm text-white/70">Racha Actual</div>
+              <p className="text-xs text-white/50 mt-2">
+                {user.currentStreak > 0 ? '¡Sigue así!' : 'Juega hoy para comenzar'}
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-yellow-400 mb-2">
+                {user.longestStreak}
+              </div>
+              <div className="text-sm text-white/70">Mejor Racha</div>
+              <p className="text-xs text-white/50 mt-2">
+                {user.longestStreak > 0 ? 'Tu récord personal' : 'Aún no tienes récord'}
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Progress Section */}

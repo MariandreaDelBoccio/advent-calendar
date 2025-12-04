@@ -9,6 +9,8 @@ interface AuthState {
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
   redeemCalendar: (code: string) => Promise<void>;
+  addPoints: (points: number) => void;
+  updateStreak: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -25,6 +27,10 @@ export const useAuthStore = create<AuthState>()(
           email,
           name: email.split('@')[0],
           redeemedCalendars: [],
+          totalPoints: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          lastPlayedDate: null,
         };
         set({ user: mockUser, isAuthenticated: true });
       },
@@ -36,6 +42,10 @@ export const useAuthStore = create<AuthState>()(
           email,
           name,
           redeemedCalendars: [],
+          totalPoints: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          lastPlayedDate: null,
         };
         set({ user: mockUser, isAuthenticated: true });
       },
@@ -63,6 +73,56 @@ export const useAuthStore = create<AuthState>()(
         if (count >= 1) unlockAchievement('first-calendar');
         if (count >= 2) unlockAchievement('double-chance');
         if (count >= 5) unlockAchievement('chocolate-lover');
+      },
+
+      addPoints: (points: number) => {
+        const { user } = get();
+        if (!user) return;
+        
+        set({
+          user: {
+            ...user,
+            totalPoints: user.totalPoints + points,
+          },
+        });
+      },
+
+      updateStreak: () => {
+        const { user } = get();
+        if (!user) return;
+
+        const today = new Date().toDateString();
+        const lastPlayed = user.lastPlayedDate ? new Date(user.lastPlayedDate).toDateString() : null;
+        
+        if (lastPlayed === today) {
+          // Ya jugó hoy, no actualizar racha
+          return;
+        }
+
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toDateString();
+
+        let newStreak = user.currentStreak;
+        
+        if (lastPlayed === yesterdayStr) {
+          // Jugó ayer, continuar racha
+          newStreak = user.currentStreak + 1;
+        } else if (lastPlayed === null || lastPlayed !== yesterdayStr) {
+          // Primera vez o rompió la racha
+          newStreak = 1;
+        }
+
+        const newLongestStreak = Math.max(user.longestStreak, newStreak);
+
+        set({
+          user: {
+            ...user,
+            currentStreak: newStreak,
+            longestStreak: newLongestStreak,
+            lastPlayedDate: today,
+          },
+        });
       },
     }),
     {

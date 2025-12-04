@@ -3,6 +3,10 @@ export interface User {
   email: string;
   name: string;
   redeemedCalendars: string[];
+  totalPoints: number;
+  currentStreak: number;
+  longestStreak: number;
+  lastPlayedDate: string | null;
 }
 
 export interface Calendar {
@@ -33,4 +37,6 @@ export interface GameProgress {
   day: number;
   completed: boolean;
   score: number;
+  points: number;
+  completedAt: Date;
 }

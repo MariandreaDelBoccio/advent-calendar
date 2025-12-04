@@ -48,16 +48,23 @@ export const CalendarPage = () => {
 
   const handleGameComplete = (prize: string) => {
     if (selectedDay) {
+      // Calcular puntos
+      const basePoints = 100;
+      const difficultyMultiplier = 
+        selectedDay.difficulty === 'hard' ? 1.5 :
+        selectedDay.difficulty === 'medium' ? 1.2 : 1;
+      const points = Math.floor(basePoints * difficultyMultiplier);
+
       completeDay(selectedDay.day, prize);
       setIsPlayingGame(false);
       setSelectedDay(null);
       
-      // Notificación de premio
+      // Notificación de premio con puntos
       import('../hooks/useToast').then(({ useToastStore }) => {
         useToastStore.getState().addToast({
           type: 'success',
           title: `¡Día ${selectedDay.day} Completado! 🎉`,
-          message: `Premio: ${prize}`,
+          message: `+${points} puntos | ${prize}`,
           duration: 6000,
         });
       });

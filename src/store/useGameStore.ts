@@ -69,11 +69,33 @@ export const useGameStore = create<GameState>()(
 
       completeDay: (day: number, prize: string) => {
         const { calendarDays, gameProgress, unlockAchievement } = get();
+        const completedDay = calendarDays.find(d => d.day === day);
+        
+        // Calcular puntos según dificultad
+        const basePoints = 100;
+        const difficultyMultiplier = 
+          completedDay?.difficulty === 'hard' ? 1.5 :
+          completedDay?.difficulty === 'medium' ? 1.2 : 1;
+        const points = Math.floor(basePoints * difficultyMultiplier);
+
         const updatedDays = calendarDays.map(d =>
           d.day === day ? { ...d, completed: true, prize } : d
         );
-        const updatedProgress = [...gameProgress, { day, completed: true, score: 100 }];
+        const updatedProgress = [...gameProgress, { 
+          day, 
+          completed: true, 
+          score: 100,
+          points,
+          completedAt: new Date(),
+        }];
         set({ calendarDays: updatedDays, gameProgress: updatedProgress });
+
+        // Actualizar puntos y racha del usuario
+        import('./useAuthStore').then(({ useAuthStore }) => {
+          const { addPoints, updateStreak } = useAuthStore.getState();
+          addPoints(points);
+          updateStreak();
+        });
 
         // Desbloquear logros según días completados
         const completedCount = updatedDays.filter(d => d.completed).length;
@@ -82,7 +104,6 @@ export const useGameStore = create<GameState>()(
         if (completedCount >= 24) unlockAchievement('all-reveals');
 
         // Desbloquear logro específico del juego de coche
-        const completedDay = updatedDays.find(d => d.day === day);
         if (completedDay?.gameType === 'car') {
           unlockAchievement('car-complete');
         }
