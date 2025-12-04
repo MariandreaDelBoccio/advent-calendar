@@ -23,7 +23,7 @@ function App() {
   const { toasts, removeToast } = useToastStore();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/advent-calendar">
       <Background />
       <Navbar />
       <ToastContainer toasts={toasts} onClose={removeToast} />
