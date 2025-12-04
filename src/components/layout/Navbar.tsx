@@ -3,6 +3,7 @@ import { Home, User, Gift, LogOut } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { motion } from 'framer-motion';
 import { DarkModeToggle } from '../ui/DarkModeToggle';
+import { SoundToggle } from '../ui/SoundToggle';
 
 export const Navbar = () => {
   const { user, logout } = useAuthStore();
@@ -29,6 +30,7 @@ export const Navbar = () => {
           </Link>
 
           <div className="flex items-center gap-4">
+            <SoundToggle />
             <DarkModeToggle />
             
             <Link

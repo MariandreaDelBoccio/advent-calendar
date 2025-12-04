@@ -5,11 +5,14 @@ interface UIState {
   hasSeenTutorial: boolean;
   showTutorial: boolean;
   darkMode: boolean;
+  soundEnabled: boolean;
   setHasSeenTutorial: (seen: boolean) => void;
   setShowTutorial: (show: boolean) => void;
   resetTutorial: () => void;
   toggleDarkMode: () => void;
   setDarkMode: (dark: boolean) => void;
+  toggleSound: () => void;
+  setSoundEnabled: (enabled: boolean) => void;
 }
 
 export const useUIStore = create<UIState>()(
@@ -18,6 +21,7 @@ export const useUIStore = create<UIState>()(
       hasSeenTutorial: false,
       showTutorial: false,
       darkMode: false,
+      soundEnabled: true,
 
       setHasSeenTutorial: (seen: boolean) => {
         set({ hasSeenTutorial: seen, showTutorial: false });
@@ -49,6 +53,14 @@ export const useUIStore = create<UIState>()(
         } else {
           document.documentElement.classList.remove('dark-mode');
         }
+      },
+
+      toggleSound: () => {
+        set({ soundEnabled: !get().soundEnabled });
+      },
+
+      setSoundEnabled: (enabled: boolean) => {
+        set({ soundEnabled: enabled });
       },
     }),
     {

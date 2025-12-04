@@ -1,7 +1,53 @@
-import { useCallback } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import confetti from 'canvas-confetti';
+import { useUIStore } from '../store/useUIStore';
+
+// AudioContext global para reutilizar
+let globalAudioContext: AudioContext | null = null;
+let audioUnlocked = false;
 
 export const useVictoryEffects = () => {
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const { soundEnabled } = useUIStore();
+
+  // Inicializar AudioContext
+  useEffect(() => {
+    if (!globalAudioContext) {
+      globalAudioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    audioContextRef.current = globalAudioContext;
+
+    // Función para desbloquear audio en móviles
+    const unlockAudio = () => {
+      if (audioUnlocked || !audioContextRef.current) return;
+      
+      // Crear un buffer silencioso para desbloquear
+      const buffer = audioContextRef.current.createBuffer(1, 1, 22050);
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContextRef.current.destination);
+      source.start(0);
+      
+      // Resumir el contexto si está suspendido
+      if (audioContextRef.current.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+      
+      audioUnlocked = true;
+    };
+
+    // Escuchar el primer toque/click para desbloquear audio
+    const events = ['touchstart', 'touchend', 'mousedown', 'keydown'];
+    events.forEach(event => {
+      document.addEventListener(event, unlockAudio, { once: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, unlockAudio);
+      });
+    };
+  }, []);
   // Confetti explosion
   const triggerConfetti = useCallback(() => {
     const duration = 3000;
@@ -108,7 +154,13 @@ export const useVictoryEffects = () => {
 
   // Victory sound (usando Web Audio API)
   const playVictorySound = useCallback(() => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (!soundEnabled || !audioContextRef.current) return;
+    const audioContext = audioContextRef.current;
+    
+    // Resumir si está suspendido (iOS)
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
     
     // Crear una melodía de victoria simple
     const notes = [
@@ -138,11 +190,16 @@ export const useVictoryEffects = () => {
 
       startTime += note.duration;
     });
-  }, []);
+  }, [soundEnabled]);
 
   // Defeat sound
   const playDefeatSound = useCallback(() => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (!soundEnabled || !audioContextRef.current) return;
+    const audioContext = audioContextRef.current;
+    
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
     
     const notes = [
       { freq: 392.00, duration: 0.2 }, // G4
@@ -171,11 +228,16 @@ export const useVictoryEffects = () => {
 
       startTime += note.duration;
     });
-  }, []);
+  }, [soundEnabled]);
 
   // Click sound
   const playClickSound = useCallback(() => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (!soundEnabled || !audioContextRef.current) return;
+    const audioContext = audioContextRef.current;
+    
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -190,11 +252,16 @@ export const useVictoryEffects = () => {
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.1);
-  }, []);
+  }, [soundEnabled]);
 
   // Collect sound (para gemas, chocolates, etc)
   const playCollectSound = useCallback(() => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (!soundEnabled || !audioContextRef.current) return;
+    const audioContext = audioContextRef.current;
+    
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -210,7 +277,7 @@ export const useVictoryEffects = () => {
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.2);
-  }, []);
+  }, [soundEnabled]);
 
   return {
     triggerConfetti,
