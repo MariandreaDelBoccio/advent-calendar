@@ -1,12 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, Trophy, MapPin, Gift, HelpCircle } from 'lucide-react';
+import { Calendar, Trophy, MapPin, Gift, HelpCircle, Clock, Star } from 'lucide-react';
 import { useUIStore } from '../store/useUIStore';
+import { useGameStore } from '../store/useGameStore';
+import { useAuthStore } from '../store/useAuthStore';
 import { WelcomeTutorial } from '../components/ui/WelcomeTutorial';
 
 export const Home = () => {
   const { hasSeenTutorial, showTutorial, setHasSeenTutorial, setShowTutorial } = useUIStore();
+  const { achievements } = useGameStore();
+  const { user } = useAuthStore();
+  const [timeUntilNextDay, setTimeUntilNextDay] = useState({ hours: 0, minutes: 0, seconds: 0 });
+
+  const recentAchievements = achievements.filter(a => a.unlocked).slice(-3);
 
   // Mostrar tutorial en el primer login
   useEffect(() => {
@@ -22,6 +29,27 @@ export const Home = () => {
   const handleShowTutorial = () => {
     setShowTutorial(true);
   };
+
+  // Contador regresivo hasta el próximo día
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      
+      const diff = tomorrow.getTime() - now.getTime();
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      setTimeUntilNextDay({ hours, minutes, seconds });
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       {/* Tutorial Modal */}
@@ -57,6 +85,41 @@ export const Home = () => {
         </div>
       </motion.div>
 
+      {/* Countdown Timer */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2 }}
+        className="glass-effect rounded-2xl p-6 max-w-md mx-auto mb-16"
+      >
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Clock className="text-primary-300" size={24} />
+          <h3 className="text-lg font-semibold">Próximo Día en:</h3>
+        </div>
+        <div className="flex justify-center gap-4">
+          <div className="text-center">
+            <div className="text-4xl font-bold text-primary-300">
+              {timeUntilNextDay.hours.toString().padStart(2, '0')}
+            </div>
+            <div className="text-xs text-white/60">Horas</div>
+          </div>
+          <div className="text-4xl font-bold text-white/50">:</div>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-primary-300">
+              {timeUntilNextDay.minutes.toString().padStart(2, '0')}
+            </div>
+            <div className="text-xs text-white/60">Minutos</div>
+          </div>
+          <div className="text-4xl font-bold text-white/50">:</div>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-primary-300">
+              {timeUntilNextDay.seconds.toString().padStart(2, '0')}
+            </div>
+            <div className="text-xs text-white/60">Segundos</div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Quick Links Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         <QuickLink
@@ -84,6 +147,64 @@ export const Home = () => {
           description="Canjea más códigos"
         />
       </div>
+
+      {/* Recent Achievements */}
+      {recentAchievements.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="glass-effect rounded-2xl p-6 max-w-2xl mx-auto mb-16"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold flex items-center gap-2">
+              <Star className="text-yellow-400" size={24} />
+              Logros Recientes
+            </h3>
+            <Link to="/achievements" className="text-sm text-primary-300 hover:text-primary-200">
+              Ver todos →
+            </Link>
+          </div>
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            {recentAchievements.map((achievement) => (
+              <motion.div
+                key={achievement.id}
+                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0 bg-white/5 rounded-xl p-4 min-w-[140px] text-center"
+              >
+                <div className="text-4xl mb-2">{achievement.icon}</div>
+                <div className="text-sm font-semibold text-yellow-300">{achievement.title}</div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* User Stats Quick View */}
+      {user && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28 }}
+          className="glass-effect rounded-2xl p-6 max-w-2xl mx-auto mb-16"
+        >
+          <h3 className="text-xl font-bold mb-4 text-center">Tu Progreso Hoy</h3>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-yellow-400">{user.totalPoints.toLocaleString()}</div>
+              <div className="text-xs text-white/60">Puntos</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-orange-400">{user.currentStreak} 🔥</div>
+              <div className="text-xs text-white/60">Racha</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-400">{user.redeemedCalendars.length}</div>
+              <div className="text-xs text-white/60">Calendarios</div>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Info Section */}
       <motion.div

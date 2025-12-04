@@ -154,6 +154,87 @@ export const ProfilePage = () => {
           </div>
         </motion.div>
 
+        {/* Prize History */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="glass-effect rounded-2xl p-8 mb-8"
+        >
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+            <Gift className="text-yellow-400" size={28} />
+            Historial de Premios
+          </h2>
+
+          {calendarDays.filter(d => d.completed && d.prize).length === 0 ? (
+            <div className="text-center py-8">
+              <Gift className="inline-block mb-4 text-white/30" size={64} />
+              <p className="text-white/60 mb-2">Aún no has ganado premios</p>
+              <p className="text-sm text-white/40">
+                Completa días del calendario para ganar premios
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3 max-h-64 overflow-y-auto">
+              {calendarDays
+                .filter(d => d.completed && d.prize)
+                .reverse()
+                .map((day) => (
+                  <div
+                    key={day.day}
+                    className="bg-white/5 rounded-lg p-4 flex items-center gap-4 hover:bg-white/10 transition-colors"
+                  >
+                    <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
+                      🎁
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold">Día {day.day}</p>
+                      <p className="text-sm text-white/70 truncate">{day.prize}</p>
+                    </div>
+                    <div className="text-xs text-white/50">
+                      {day.difficulty === 'hard' ? '+150' : day.difficulty === 'medium' ? '+120' : '+100'} pts
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
+        </motion.div>
+
+        {/* Game Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.05 }}
+          className="glass-effect rounded-2xl p-8 mb-8"
+        >
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+            <Trophy className="text-blue-400" size={28} />
+            Estadísticas por Juego
+          </h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { type: 'car', name: 'Carrera', emoji: '🏎️', color: 'bg-blue-600' },
+              { type: 'snake', name: 'Snake', emoji: '🐍', color: 'bg-green-600' },
+              { type: 'memory', name: 'Memoria', emoji: '🃏', color: 'bg-purple-600' },
+              { type: 'puzzle', name: 'Puzzle', emoji: '🧩', color: 'bg-orange-600' },
+            ].map((game) => {
+              const gamesPlayed = calendarDays.filter(
+                d => d.completed && d.gameType === game.type
+              ).length;
+              return (
+                <div key={game.type} className="bg-white/5 rounded-xl p-4 text-center">
+                  <div className={`w-12 h-12 ${game.color} rounded-lg flex items-center justify-center text-2xl mx-auto mb-2`}>
+                    {game.emoji}
+                  </div>
+                  <div className="text-2xl font-bold text-white">{gamesPlayed}</div>
+                  <div className="text-xs text-white/60">{game.name}</div>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+
         {/* Recent Activity */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

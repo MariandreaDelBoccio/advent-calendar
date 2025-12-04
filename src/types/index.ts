@@ -39,4 +39,6 @@ export interface GameProgress {
   score: number;
   points: number;
   completedAt: Date;
+  moves?: number;
+  timeSpent?: number;
 }
