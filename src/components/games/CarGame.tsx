@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, X, RotateCcw } from 'lucide-react';
+import { useVictoryEffects } from '../../hooks/useVictoryEffects';
 
 interface CarGameProps {
   onComplete: (prize: string) => void;
@@ -32,6 +33,7 @@ const SPEED = 3;
 const GEMS_TO_WIN = 7;
 
 export const CarGame = ({ onComplete, onClose, dayNumber }: CarGameProps) => {
+  const { triggerConfettiCannon, playVictorySound, playDefeatSound, playCollectSound } = useVictoryEffects();
   const [carLane, setCarLane] = useState(1); // Empieza en el centro
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [gems, setGems] = useState<Gem[]>([]);
@@ -139,6 +141,7 @@ export const CarGame = ({ onComplete, onClose, dayNumber }: CarGameProps) => {
         obs.y < carY + CAR_SIZE
       ) {
         setGameOver(true);
+        playDefeatSound();
       }
     });
 
@@ -154,6 +157,7 @@ export const CarGame = ({ onComplete, onClose, dayNumber }: CarGameProps) => {
           prev.map((g) => (g.id === gem.id ? { ...g, collected: true } : g))
         );
         setScore((prev) => prev + 1);
+        playCollectSound();
       }
     });
   }, [obstacles, gems, carLane, gameOver, gameWon]);
@@ -162,6 +166,8 @@ export const CarGame = ({ onComplete, onClose, dayNumber }: CarGameProps) => {
   useEffect(() => {
     if (score >= GEMS_TO_WIN && !gameWon) {
       setGameWon(true);
+      playVictorySound();
+      triggerConfettiCannon();
       const prizes = [
         '🎁 Descuento 20% en tu próxima compra',
         '🍫 Chocolatina Premium Gratis',
@@ -172,7 +178,7 @@ export const CarGame = ({ onComplete, onClose, dayNumber }: CarGameProps) => {
       const prize = prizes[Math.floor(Math.random() * prizes.length)];
       setTimeout(() => onComplete(prize), 1500);
     }
-  }, [score, gameWon, onComplete]);
+  }, [score, gameWon, onComplete, playVictorySound, triggerConfettiCannon]);
 
   const resetGame = () => {
     setCarLane(1);

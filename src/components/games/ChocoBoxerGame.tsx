@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, X, Heart, Zap } from 'lucide-react';
 import { useGameStore } from '../../store/useGameStore';
+import { useVictoryEffects } from '../../hooks/useVictoryEffects';
 
 interface ChocoBoxerGameProps {
   onClose: () => void;
@@ -66,6 +67,7 @@ const LEVELS = [
 
 export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
   const { boxerLevel, updateBoxerLevel } = useGameStore();
+  const { triggerFireworks, playVictorySound, playDefeatSound, playClickSound } = useVictoryEffects();
   const [currentLevel, setCurrentLevel] = useState(boxerLevel || 1);
   const [currentEnemyIndex, setCurrentEnemyIndex] = useState(0);
   const [enemies, setEnemies] = useState<Enemy[]>(LEVELS[currentLevel - 1].enemies);
@@ -84,6 +86,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
     if (isAttacking || isEnemyAttacking || gameOver || levelComplete) return;
 
     setIsAttacking(true);
+    playClickSound();
     const damage = Math.floor(Math.random() * 10) + 15; // 15-25 de daño
 
     // Actualizar salud del enemigo
@@ -118,6 +121,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
         const newHealth = Math.max(0, prev - damage);
         if (newHealth === 0) {
           setGameOver(true);
+          playDefeatSound();
         }
         return newHealth;
       });
@@ -135,6 +139,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
     } else {
       // Nivel completado
       setLevelComplete(true);
+      playVictorySound();
       
       // Actualizar nivel máximo alcanzado
       if (currentLevel > boxerLevel) {
@@ -144,6 +149,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
       // Verificar si completó todos los niveles
       if (currentLevel === 5) {
         setAllLevelsComplete(true);
+        triggerFireworks();
       }
     }
   };

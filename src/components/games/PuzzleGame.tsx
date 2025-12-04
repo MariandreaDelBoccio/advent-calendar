@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, X, Shuffle } from 'lucide-react';
+import { useVictoryEffects } from '../../hooks/useVictoryEffects';
 
 interface PuzzleGameProps {
   onComplete: (prize: string) => void;
@@ -12,6 +13,7 @@ const GRID_SIZE = 3; // 3x3 puzzle
 const TILE_EMOJIS = ['🍫', '🎄', '⭐', '🎁', '🔔', '❄️', '🕯️', '🎅', ''];
 
 export const PuzzleGame = ({ onComplete, onClose, dayNumber }: PuzzleGameProps) => {
+  const { triggerConfettiCannon, playVictorySound, playClickSound } = useVictoryEffects();
   const [tiles, setTiles] = useState<string[]>([]);
   const [moves, setMoves] = useState(0);
   const [gameWon, setGameWon] = useState(false);
@@ -73,6 +75,7 @@ export const PuzzleGame = ({ onComplete, onClose, dayNumber }: PuzzleGameProps) 
       [newTiles[emptyIndex], newTiles[index]] = [newTiles[index], newTiles[emptyIndex]];
       setTiles(newTiles);
       setMoves((prev) => prev + 1);
+      playClickSound();
     }
   };
 
@@ -92,6 +95,8 @@ export const PuzzleGame = ({ onComplete, onClose, dayNumber }: PuzzleGameProps) 
     
     if (isSolved && !gameWon) {
       setGameWon(true);
+      playVictorySound();
+      triggerConfettiCannon();
       const prizes = [
         '🎁 Descuento 35% en tu compra',
         '🍫 Mega pack de chocolates',
@@ -102,7 +107,7 @@ export const PuzzleGame = ({ onComplete, onClose, dayNumber }: PuzzleGameProps) 
       const prize = prizes[Math.floor(Math.random() * prizes.length)];
       setTimeout(() => onComplete(prize), 1500);
     }
-  }, [tiles, moves, gameWon, onComplete]);
+  }, [tiles, moves, gameWon, onComplete, playVictorySound, triggerConfettiCannon]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">

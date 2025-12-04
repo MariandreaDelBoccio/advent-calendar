@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, X, RotateCcw, Clock } from 'lucide-react';
+import { useVictoryEffects } from '../../hooks/useVictoryEffects';
 
 interface MemoryGameProps {
   onComplete: (prize: string) => void;
@@ -20,6 +21,7 @@ const TOTAL_PAIRS = 8;
 const TIME_LIMIT = 90; // segundos
 
 export const MemoryGame = ({ onComplete, onClose, dayNumber }: MemoryGameProps) => {
+  const { triggerConfettiCannon, playVictorySound, playDefeatSound, playCollectSound } = useVictoryEffects();
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
@@ -60,6 +62,7 @@ export const MemoryGame = ({ onComplete, onClose, dayNumber }: MemoryGameProps) 
       setTimeLeft((prev) => {
         if (prev <= 1) {
           setGameOver(true);
+          playDefeatSound();
           return 0;
         }
         return prev - 1;
@@ -101,6 +104,7 @@ export const MemoryGame = ({ onComplete, onClose, dayNumber }: MemoryGameProps) 
 
     if (firstCard.emoji === secondCard.emoji) {
       // ¡Coincidencia!
+      playCollectSound();
       setTimeout(() => {
         setCards((prev) =>
           prev.map((c) =>
@@ -129,6 +133,8 @@ export const MemoryGame = ({ onComplete, onClose, dayNumber }: MemoryGameProps) 
   useEffect(() => {
     if (matches === TOTAL_PAIRS && !gameWon) {
       setGameWon(true);
+      playVictorySound();
+      triggerConfettiCannon();
       const prizes = [
         '🎁 Vale de 30% de descuento',
         '🍫 Set de chocolates gourmet',
@@ -139,7 +145,7 @@ export const MemoryGame = ({ onComplete, onClose, dayNumber }: MemoryGameProps) 
       const prize = prizes[Math.floor(Math.random() * prizes.length)];
       setTimeout(() => onComplete(prize), 1500);
     }
-  }, [matches, gameWon, onComplete]);
+  }, [matches, gameWon, onComplete, playVictorySound, triggerConfettiCannon]);
 
   const getTimeColor = () => {
     if (timeLeft > 60) return 'text-green-400';

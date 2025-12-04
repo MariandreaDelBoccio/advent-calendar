@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, X, RotateCcw } from 'lucide-react';
+import { useVictoryEffects } from '../../hooks/useVictoryEffects';
 
 interface SnakeGameProps {
   onComplete: (prize: string) => void;
@@ -21,6 +22,7 @@ const INITIAL_SPEED = 150;
 const CHOCOLATES_TO_WIN = 10;
 
 export const SnakeGame = ({ onComplete, onClose, dayNumber }: SnakeGameProps) => {
+  const { triggerConfettiCannon, playVictorySound, playDefeatSound, playCollectSound } = useVictoryEffects();
   const [snake, setSnake] = useState<Position[]>([{ x: 7, y: 7 }]);
   const [direction, setDirection] = useState<Direction>('RIGHT');
   const [nextDirection, setNextDirection] = useState<Direction>('RIGHT');
@@ -116,12 +118,14 @@ export const SnakeGame = ({ onComplete, onClose, dayNumber }: SnakeGameProps) =>
           newHead.y >= GRID_SIZE
         ) {
           setGameOver(true);
+          playDefeatSound();
           return prevSnake;
         }
 
         // Verificar colisión con el cuerpo
         if (prevSnake.some((segment) => segment.x === newHead.x && segment.y === newHead.y)) {
           setGameOver(true);
+          playDefeatSound();
           return prevSnake;
         }
 
@@ -131,6 +135,7 @@ export const SnakeGame = ({ onComplete, onClose, dayNumber }: SnakeGameProps) =>
         if (newHead.x === chocolate.x && newHead.y === chocolate.y) {
           setScore((prev) => prev + 1);
           setChocolate(generateChocolate(newSnake));
+          playCollectSound();
           // Aumentar velocidad gradualmente
           setSpeed((prev) => Math.max(80, prev - 5));
           return newSnake; // La serpiente crece
@@ -149,6 +154,8 @@ export const SnakeGame = ({ onComplete, onClose, dayNumber }: SnakeGameProps) =>
   useEffect(() => {
     if (score >= CHOCOLATES_TO_WIN && !gameWon) {
       setGameWon(true);
+      playVictorySound();
+      triggerConfettiCannon();
       const prizes = [
         '🎁 Cupón de descuento 25%',
         '🍫 Caja de chocolates premium',
@@ -159,7 +166,7 @@ export const SnakeGame = ({ onComplete, onClose, dayNumber }: SnakeGameProps) =>
       const prize = prizes[Math.floor(Math.random() * prizes.length)];
       setTimeout(() => onComplete(prize), 1500);
     }
-  }, [score, gameWon, onComplete]);
+  }, [score, gameWon, onComplete, playVictorySound, triggerConfettiCannon]);
 
   const resetGame = () => {
     setSnake([{ x: 7, y: 7 }]);
