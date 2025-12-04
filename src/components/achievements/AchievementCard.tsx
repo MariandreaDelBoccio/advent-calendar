@@ -29,7 +29,7 @@ export const AchievementCard = ({ achievement, index }: AchievementCardProps) =>
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          className="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg z-10 border-2 border-white"
+          className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold w-6 h-6 rounded-full shadow-lg z-10 border-2 border-white flex items-center justify-center"
         >
           ✓
         </motion.div>
