@@ -233,24 +233,8 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👤 Autor
 
-**Tu Nombre**
+**Mariandrea Del Boccio**
 
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
-- Portfolio: [tu-portfolio.com](https://tu-portfolio.com)
-
----
-
-## 🙏 Agradecimientos
-
-- Iconos por [Lucide React](https://lucide.dev/)
-- Mapas por [Leaflet](https://leafletjs.com/)
-- Animaciones por [Framer Motion](https://www.framer.com/motion/)
-
----
-
-<div align="center">
-
-⭐ Si te gustó este proyecto, dale una estrella en GitHub ⭐
-
-</div>
+- GitHub: [@MariandreaDelBoccio](https://github.com/MariandreaDelBoccio)
+- LinkedIn: [Mariandrea Del Boccio](https://www.linkedin.com/in/mariandreadelboccio/)
+- Portfolio: [mariandreadelboccio.com](https://mariandreadelboccio.github.io/my-portfolio/)
