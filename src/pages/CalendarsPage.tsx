@@ -62,7 +62,10 @@ export const CalendarsPage = () => {
           </h1>
         </div>
         <p className="text-xl text-white/80 mb-6">
-          Canjea códigos y gestiona tus calendarios
+          {calendarsCount === 0 
+            ? '¡Canjea tu primer código para comenzar!' 
+            : 'Canjea códigos y gestiona tus calendarios'
+          }
         </p>
 
         {/* Stats */}

@@ -35,6 +35,10 @@ export const useGameStore = create<GameState>()(
       boxerLevel: 0,
 
       initializeCalendar: () => {
+        const gameTypes = ['car', 'snake', 'memory', 'puzzle'] as const;
+        const difficulties = ['easy', 'medium', 'hard'] as const;
+        const estimatedTimes = [2, 3, 4, 5]; // minutos
+
         const days: CalendarDay[] = Array.from({ length: 24 }, (_, i) => {
           const day = i + 1;
           const currentDate = new Date();
@@ -48,11 +52,16 @@ export const useGameStore = create<GameState>()(
             ? day <= currentDay // En desarrollo, desbloquear hasta el día actual
             : currentMonth === 11 && currentDay >= day; // En producción, solo en diciembre
           
+          // Asignar dificultad progresiva
+          const difficulty = day <= 8 ? 'easy' : day <= 16 ? 'medium' : 'hard';
+          
           return {
             day,
             unlocked,
             completed: false,
-            gameType: ['car', 'snake', 'memory', 'puzzle'][Math.floor(Math.random() * 4)] as any,
+            gameType: gameTypes[Math.floor(Math.random() * gameTypes.length)],
+            difficulty,
+            estimatedTime: estimatedTimes[Math.floor(Math.random() * estimatedTimes.length)],
           };
         });
         set({ calendarDays: days });

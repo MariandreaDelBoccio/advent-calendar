@@ -60,18 +60,18 @@ export const AchievementsPage = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <div className="glass-effect rounded-xl px-6 py-3">
+        <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
+          <div className="glass-effect rounded-xl px-6 py-3 text-center">
             <Star className="inline-block mb-1 text-yellow-400" size={24} />
             <div className="text-2xl font-bold text-yellow-400">{unlockedCount}</div>
             <div className="text-sm text-white/70">Desbloqueados</div>
           </div>
-          <div className="glass-effect rounded-xl px-6 py-3">
+          <div className="glass-effect rounded-xl px-6 py-3 text-center">
             <Lock className="inline-block mb-1 text-gray-400" size={24} />
             <div className="text-2xl font-bold text-gray-400">{totalCount - unlockedCount}</div>
             <div className="text-sm text-white/70">Bloqueados</div>
           </div>
-          <div className="glass-effect rounded-xl px-6 py-3">
+          <div className="glass-effect rounded-xl px-6 py-3 text-center">
             <Trophy className="inline-block mb-1 text-primary-300" size={24} />
             <div className="text-2xl font-bold text-primary-300">{totalCount}</div>
             <div className="text-sm text-white/70">Total</div>

@@ -25,6 +25,8 @@ export interface CalendarDay {
   completed: boolean;
   prize?: string;
   gameType: 'car' | 'snake' | 'memory' | 'puzzle';
+  difficulty?: 'easy' | 'medium' | 'hard';
+  estimatedTime?: number; // en minutos
 }
 
 export interface GameProgress {

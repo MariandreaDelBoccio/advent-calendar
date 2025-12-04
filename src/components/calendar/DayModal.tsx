@@ -22,6 +22,32 @@ export const DayModal = ({ day, isOpen, onClose, onPlayGame }: DayModalProps) =>
     return games[gameType as keyof typeof games] || 'Juego';
   };
 
+  const getDifficultyColor = (difficulty?: string) => {
+    switch (difficulty) {
+      case 'easy':
+        return 'text-green-400';
+      case 'medium':
+        return 'text-yellow-400';
+      case 'hard':
+        return 'text-red-400';
+      default:
+        return 'text-white';
+    }
+  };
+
+  const getDifficultyText = (difficulty?: string) => {
+    switch (difficulty) {
+      case 'easy':
+        return 'Fácil';
+      case 'medium':
+        return 'Medio';
+      case 'hard':
+        return 'Difícil';
+      default:
+        return '';
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -112,9 +138,27 @@ export const DayModal = ({ day, isOpen, onClose, onPlayGame }: DayModalProps) =>
 
                     <div className="glass-effect rounded-xl p-4 mb-6">
                       <Gamepad2 className="inline-block mb-2" size={32} />
-                      <p className="text-lg font-semibold">
+                      <p className="text-lg font-semibold mb-3">
                         {getGameName(day.gameType)}
                       </p>
+                      <div className="flex justify-center gap-4 text-sm">
+                        {day.difficulty && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-white/60">Dificultad:</span>
+                            <span className={`font-semibold ${getDifficultyColor(day.difficulty)}`}>
+                              {getDifficultyText(day.difficulty)}
+                            </span>
+                          </div>
+                        )}
+                        {day.estimatedTime && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-white/60">Tiempo:</span>
+                            <span className="font-semibold text-blue-400">
+                              ~{day.estimatedTime} min
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
                     <button

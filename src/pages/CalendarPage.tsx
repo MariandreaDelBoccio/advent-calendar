@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar as CalendarIcon, Gift } from 'lucide-react';
 import { useGameStore } from '../store/useGameStore';
+import { useAuthStore } from '../store/useAuthStore';
 import { CalendarDay } from '../components/calendar/CalendarDay';
 import { DayModal } from '../components/calendar/DayModal';
 import { CarGame } from '../components/games/CarGame';
@@ -12,9 +14,19 @@ import type { CalendarDay as CalendarDayType } from '../types';
 
 export const CalendarPage = () => {
   const { calendarDays, initializeCalendar, completeDay } = useGameStore();
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
   const [selectedDay, setSelectedDay] = useState<CalendarDayType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
+
+  // Verificar si tiene calendarios canjeados
+  useEffect(() => {
+    if (user && user.redeemedCalendars.length === 0) {
+      // Redirigir a la página de canjear calendarios
+      navigate('/calendars');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (calendarDays.length === 0) {
@@ -96,20 +108,7 @@ export const CalendarPage = () => {
           </div>
         </div>
 
-        {/* Botón de reset (solo en desarrollo) */}
-        {import.meta.env.DEV && (
-          <div className="mb-6">
-            <button
-              onClick={() => {
-                initializeCalendar();
-                window.location.reload();
-              }}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-semibold transition-colors"
-            >
-              🔄 Resetear Calendario (Dev)
-            </button>
-          </div>
-        )}
+
       </motion.div>
 
       {/* Calendario Grid */}
