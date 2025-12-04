@@ -21,46 +21,46 @@ const LEVELS = [
   {
     level: 1,
     enemies: [
-      { id: 1, name: 'Galleta Blanda', emoji: '🍪', health: 30, maxHealth: 30, damage: 5 },
-      { id: 2, name: 'Caramelo Pegajoso', emoji: '🍬', health: 35, maxHealth: 35, damage: 6 },
-      { id: 3, name: 'Donut Rebelde', emoji: '🍩', health: 40, maxHealth: 40, damage: 7 },
-      { id: 4, name: 'Cupcake Feroz', emoji: '🧁', health: 45, maxHealth: 45, damage: 8 },
+      { id: 1, name: 'Galleta Blanda', emoji: '🍪', health: 40, maxHealth: 40, damage: 4 },
+      { id: 2, name: 'Caramelo Pegajoso', emoji: '🍬', health: 45, maxHealth: 45, damage: 5 },
+      { id: 3, name: 'Donut Rebelde', emoji: '🍩', health: 50, maxHealth: 50, damage: 6 },
+      { id: 4, name: 'Cupcake Feroz', emoji: '🧁', health: 55, maxHealth: 55, damage: 7 },
     ],
   },
   {
     level: 2,
     enemies: [
-      { id: 5, name: 'Helado Congelado', emoji: '🍦', health: 50, maxHealth: 50, damage: 10 },
-      { id: 6, name: 'Pastel Explosivo', emoji: '🎂', health: 55, maxHealth: 55, damage: 11 },
-      { id: 7, name: 'Piruleta Giratoria', emoji: '🍭', health: 60, maxHealth: 60, damage: 12 },
-      { id: 8, name: 'Tarta Vengativa', emoji: '🥧', health: 65, maxHealth: 65, damage: 13 },
+      { id: 5, name: 'Helado Congelado', emoji: '🍦', health: 60, maxHealth: 60, damage: 8 },
+      { id: 6, name: 'Pastel Explosivo', emoji: '🎂', health: 65, maxHealth: 65, damage: 9 },
+      { id: 7, name: 'Piruleta Giratoria', emoji: '🍭', health: 70, maxHealth: 70, damage: 10 },
+      { id: 8, name: 'Tarta Vengativa', emoji: '🥧', health: 75, maxHealth: 75, damage: 11 },
     ],
   },
   {
     level: 3,
     enemies: [
-      { id: 9, name: 'Brownie Oscuro', emoji: '🍫', health: 70, maxHealth: 70, damage: 15 },
-      { id: 10, name: 'Macaron Mágico', emoji: '🍡', health: 75, maxHealth: 75, damage: 16 },
-      { id: 11, name: 'Churro Luchador', emoji: '🥨', health: 80, maxHealth: 80, damage: 17 },
-      { id: 12, name: 'Waffle Guerrero', emoji: '🧇', health: 85, maxHealth: 85, damage: 18 },
+      { id: 9, name: 'Brownie Oscuro', emoji: '🍫', health: 80, maxHealth: 80, damage: 12 },
+      { id: 10, name: 'Macaron Mágico', emoji: '🍡', health: 85, maxHealth: 85, damage: 13 },
+      { id: 11, name: 'Churro Luchador', emoji: '🥨', health: 90, maxHealth: 90, damage: 14 },
+      { id: 12, name: 'Waffle Guerrero', emoji: '🧇', health: 95, maxHealth: 95, damage: 15 },
     ],
   },
   {
     level: 4,
     enemies: [
-      { id: 13, name: 'Croissant Ninja', emoji: '🥐', health: 90, maxHealth: 90, damage: 20 },
-      { id: 14, name: 'Pretzel Retorcido', emoji: '🥨', health: 95, maxHealth: 95, damage: 21 },
-      { id: 15, name: 'Bagel Blindado', emoji: '🥯', health: 100, maxHealth: 100, damage: 22 },
-      { id: 16, name: 'Pan Dulce Supremo', emoji: '🍞', health: 110, maxHealth: 110, damage: 23 },
+      { id: 13, name: 'Croissant Ninja', emoji: '🥐', health: 100, maxHealth: 100, damage: 16 },
+      { id: 14, name: 'Pretzel Retorcido', emoji: '🥨', health: 105, maxHealth: 105, damage: 17 },
+      { id: 15, name: 'Bagel Blindado', emoji: '🥯', health: 110, maxHealth: 110, damage: 18 },
+      { id: 16, name: 'Pan Dulce Supremo', emoji: '🍞', health: 120, maxHealth: 120, damage: 19 },
     ],
   },
   {
     level: 5,
     enemies: [
-      { id: 17, name: 'Emperador Chocolate', emoji: '👑', health: 120, maxHealth: 120, damage: 25 },
-      { id: 18, name: 'Rey Caramelo', emoji: '🤴', health: 130, maxHealth: 130, damage: 27 },
-      { id: 19, name: 'Señor Azúcar', emoji: '🦹', health: 140, maxHealth: 140, damage: 29 },
-      { id: 20, name: 'Jefe Final Dulce', emoji: '👹', health: 200, maxHealth: 200, damage: 30 },
+      { id: 17, name: 'Emperador Chocolate', emoji: '👑', health: 130, maxHealth: 130, damage: 20 },
+      { id: 18, name: 'Rey Caramelo', emoji: '🤴', health: 140, maxHealth: 140, damage: 21 },
+      { id: 19, name: 'Señor Azúcar', emoji: '🦹', health: 150, maxHealth: 150, damage: 22 },
+      { id: 20, name: 'Jefe Final Dulce', emoji: '👹', health: 180, maxHealth: 180, damage: 25 },
     ],
   },
 ];
@@ -71,8 +71,8 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
   const [currentLevel, setCurrentLevel] = useState(boxerLevel || 1);
   const [currentEnemyIndex, setCurrentEnemyIndex] = useState(0);
   const [enemies, setEnemies] = useState<Enemy[]>(LEVELS[currentLevel - 1].enemies);
-  const [playerHealth, setPlayerHealth] = useState(100);
-  const [maxPlayerHealth] = useState(100);
+  const [playerHealth, setPlayerHealth] = useState(150);
+  const [maxPlayerHealth] = useState(150);
   const [isAttacking, setIsAttacking] = useState(false);
   const [isEnemyAttacking, setIsEnemyAttacking] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -87,7 +87,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
 
     setIsAttacking(true);
     playClickSound();
-    const damage = Math.floor(Math.random() * 10) + 15; // 15-25 de daño
+    const damage = Math.floor(Math.random() * 16) + 20; // 20-35 de daño
 
     // Actualizar salud del enemigo
     setEnemies((prev) =>
@@ -161,7 +161,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
       setCurrentLevel(nextLevel);
       setEnemies(LEVELS[nextLevel - 1].enemies);
       setCurrentEnemyIndex(0);
-      setPlayerHealth(100);
+      setPlayerHealth(150);
       setLevelComplete(false);
     }
   };
@@ -170,7 +170,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
   const handleRetry = () => {
     setEnemies(LEVELS[currentLevel - 1].enemies);
     setCurrentEnemyIndex(0);
-    setPlayerHealth(100);
+    setPlayerHealth(150);
     setGameOver(false);
     setLevelComplete(false);
   };
@@ -398,7 +398,7 @@ export const ChocoBoxerGame = ({ onClose }: ChocoBoxerGameProps) => {
             {isAttacking ? '💥 ¡GOLPE!' : '🥊 ATACAR'}
           </button>
           <p className="text-xs text-center text-white/60">
-            Haz click en ATACAR para golpear al enemigo • Daño: 15-25 HP
+            Haz click en ATACAR para golpear al enemigo • Daño: 20-35 HP
           </p>
         </div>
       </motion.div>
