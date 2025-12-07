@@ -3,9 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  html, body, #root {
+    @apply min-h-screen;
+  }
+
   body {
-    @apply bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white min-h-screen;
+    @apply bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  #root {
+    @apply flex flex-col;
   }
 }
 
