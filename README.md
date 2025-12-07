@@ -7,9 +7,11 @@
 ![Vite](https://img.shields.io/badge/Vite-7.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-Una aplicación web interactiva de calendario de adviento con 5 juegos únicos, sistema de gamificación completo y experiencia de usuario excepcional.
+Una aplicación web interactiva de calendario de adviento con 6 juegos únicos, sistema de gamificación completo y experiencia de usuario excepcional.
 
-[Demo en Vivo](https://tu-usuario.github.io/advent-calendar/) • [Reportar Bug](https://github.com/tu-usuario/advent-calendar/issues)
+**Proyecto educativo inspirado en el Calendario de Adviento de Ibai Llanos**
+
+[Demo en Vivo](https://mariandreadelboccio.github.io/advent-calendar/) • [Reportar Bug](https://github.com/MariandreaDelBoccio/advent-calendar/issues)
 
 </div>
 
@@ -17,11 +19,13 @@ Una aplicación web interactiva de calendario de adviento con 5 juegos únicos, 
 
 ## ✨ Características Principales
 
-### 🎮 5 Juegos Completos
+### 🎮 6 Juegos Completos
 - **🏎️ Carrera Loca** - Esquiva obstáculos y recolecta gemas
 - **🐍 Snake Chocolate** - Clásico Snake con temática navideña
 - **🃏 Memoria Dulce** - Encuentra pares de cartas contra el tiempo
 - **🧩 Puzzle de Chocolatinas** - Rompecabezas deslizante 3x3
+- **🎯 Práctica de Puntería** - Haz click en objetivos antes de que desaparezcan
+- **⚡ Simon Dice** - Memoriza y repite secuencias de colores
 - **🥊 Choco Boxer** - Juego de combate por turnos con 5 niveles épicos
 
 ### 🏆 Sistema de Gamificación
@@ -91,7 +95,7 @@ Una aplicación web interactiva de calendario de adviento con 5 juegos únicos, 
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/advent-calendar.git
+git clone https://github.com/MariandreaDelBoccio/advent-calendar.git
 
 # Entrar al directorio
 cd advent-calendar
@@ -164,7 +168,19 @@ advent-calendar/
 - Vista previa de la solución
 - Detección automática de victoria
 
-### 5. 🥊 Choco Boxer
+### 5. 🎯 Práctica de Puntería
+- Click en objetivos antes de que desaparezcan
+- Objetivos más pequeños = más puntos
+- 15 aciertos en 30 segundos para ganar
+- Cursor en forma de mira
+
+### 6. ⚡ Simon Dice
+- Memoriza secuencias de colores
+- 4 colores diferentes
+- Llega al nivel 8 para ganar
+- Dificultad progresiva
+
+### 7. 🥊 Choco Boxer
 - 5 niveles épicos de dificultad
 - 20 enemigos únicos con nombres creativos
 - Sistema de combate por turnos
@@ -225,9 +241,36 @@ Las contribuciones son bienvenidas. Por favor:
 
 ---
 
+## � Inspiriación y Créditos
+
+Este proyecto fue **inspirado por el Calendario de Adviento de Ibai Llanos**, una iniciativa navideña que combina entretenimiento y gamificación de manera brillante. 
+
+### 🎯 Propósito del Proyecto
+Este es un **proyecto educativo y de portfolio** creado para:
+- Demostrar habilidades en desarrollo frontend moderno
+- Practicar arquitectura de aplicaciones React complejas
+- Implementar sistemas de gamificación y juegos interactivos
+- Mostrar capacidades de diseño UI/UX responsive
+
+### ⚖️ Diferencias y Mejoras
+Aunque inspirado en el concepto original, este proyecto incluye:
+- **Implementación completamente original** desde cero
+- 6 juegos únicos desarrollados con lógica propia
+- Sistema de gamificación personalizado
+- Arquitectura técnica diferente (React + TypeScript + Zustand)
+- Diseño visual y UX propios
+- Funcionalidades adicionales (mapas, tutorial, modo oscuro, etc.)
+
+### 🙏 Reconocimiento
+Agradecimiento especial a **Ibai Llanos** y su equipo por la inspiración del concepto de calendario de adviento interactivo. Este proyecto es una interpretación educativa y no tiene afiliación oficial.
+
+---
+
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+**Nota**: Este es un proyecto educativo y de portfolio. No está afiliado, asociado, autorizado, respaldado por, o de ninguna manera oficialmente conectado con Ibai Llanos o cualquiera de sus subsidiarias o afiliados.
 
 ---
 
