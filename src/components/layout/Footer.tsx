@@ -65,13 +65,24 @@ export const Footer = () => {
 
         {/* Divider */}
         <div className="border-t border-white/10 pt-6">
-          {/* Copyright */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60">
+          {/* Copyright & Attribution */}
+          <div className="flex flex-col items-center gap-3 text-sm text-white/60">
             <div className="flex items-center gap-1">
               © {currentYear} Mariandrea Del Boccio. Hecho con{' '}
               <Heart size={14} className="text-red-400 inline" fill="currentColor" /> para aprender.
             </div>
-            <div className="text-xs text-center md:text-right">
+            <div className="text-xs text-center text-white/70">
+              Inspirado en el concepto del{' '}
+              <a
+                href="https://www.bigibai.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-300 hover:text-primary-200 underline font-medium"
+              >
+                Calendario de Adviento de Ibai Llanos
+              </a>
+            </div>
+            <div className="text-xs text-center">
               Proyecto educativo • MIT License
             </div>
           </div>
