@@ -24,7 +24,7 @@ export const Footer = () => {
             <p className="text-sm text-white/70 mb-2">
               Inspirado por el{' '}
               <a
-                href="https://calendariodeadviento.com"
+                href="https://www.bigibai.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-300 hover:text-primary-200 underline"
